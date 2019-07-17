@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script  crossorigin="anonymous">
+            function run() {
+
+                var panel = document.getElementById("wspanel");
+                function log(msg) {
+                    console.log(msg);
+                    panel.innerHTML += '<br>' + msg;
+                }
+                var socket;
+                if (true) {
+                    var wsUrl = 'ws://' + window.location.hostname
+                    if (window.location.port) {
+                        wsUrl += ":" + window.location.port;
+                    }
+                    log("Connecting to: " + wsUrl);
+                    socket = new WebSocket(wsUrl);
+                    socket.onopen = function () {
+                        log('Connected');
+                        socket.send(JSON.stringify({
+                            event: 'subscribe',
+                            data: {coin: "ETH-Ropsten", addrs: [
+                                    "0x36c001c509aFF433C053483f8e6375B4b985fDFc"]}
+                        }));
+                        socket.send(JSON.stringify({
+                            event: 'subscribe',
+                            data: {coin: "DAI-Ropsten", addrs: [
+                                    "0x36c001c509aFF433C053483f8e6375B4b985fDFc",
+                                    "0x81b7E08F65Bdf5648606c89998A9CC8164397647"]}
+                        }));
+                        socket.send(JSON.stringify({
+                            event: 'subscribe',
+                            data: {coin: "BTC-Testnet", addrs: [
+                                    "mjnCi2MRfkNdRnJ6QLPLsy96Q69UKosfre",
+                                    "mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt",
+                                    "muVqs4a72KkjdMHeijkyiaD2R9Hu5mSsFF",
+                                    "mnoxjbzrYwYZZqW9z9mQgrBy9Qibnz6zy9",
+                                    "mkWB3Vxk5qzjsMKMXEFnedc18ueBgsAVdi",
+                                    "mx4f2faH28dwvxS5cacU5AbgfFBk3ZvLK9",
+                                    "mvt8x7BEMzF4vuAcXYSB1bo7QjgeThFQE4"]}
+                        }));
+                    };
+                    socket.onerror = function (error) {
+                        console.log('WebSocket Error ', error);
+                    };
+                    socket.onmessage = function (data) {
+                        log("GOT MESSAGE: " + data.data);
+                    };
+                }
+            }
+        </script>
+    </head>
+    <body onload="run()">
+        <div>
+            <a href="/walletsrv/v1">V1 MAIN API CLIENT</a>
+        </div>
+        Websocket:
+        <div id="wspanel">
+        </div>
+    </body>
+</html>

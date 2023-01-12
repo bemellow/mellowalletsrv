@@ -38,7 +38,7 @@
         "bitcoin-core": "^2.0.0",
         "bitcoinjs-lib": "^4.0.2",
         "class-transformer": "^0.3.1",
-        "class-validator": "^0.7.2",
+        "class-validator": "^0.14.0",
         "dotenv": "^6.0.0",
         "eth-ens-namehash": "latest",
         "ethereumjs-util": "^6.0.0",
